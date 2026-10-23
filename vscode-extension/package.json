@@ -1,0 +1,108 @@
+{
+  "name": "codequest",
+  "displayName": "CodeQuest",
+  "description": "Practice CodeQuest coding exercises in VS Code: open exercises, check solutions, get feedback and sync your XP.",
+  "version": "0.1.0",
+  "publisher": "codequest",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Education"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onUri",
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codequest.connect",
+        "title": "Connect Account",
+        "category": "CodeQuest"
+      },
+      {
+        "command": "codequest.openExercise",
+        "title": "Open Exercise",
+        "category": "CodeQuest"
+      },
+      {
+        "command": "codequest.checkSolution",
+        "title": "Check Solution",
+        "category": "CodeQuest",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "codequest.showHint",
+        "title": "Show Hint",
+        "category": "CodeQuest"
+      },
+      {
+        "command": "codequest.nextLesson",
+        "title": "Next Lesson",
+        "category": "CodeQuest"
+      },
+      {
+        "command": "codequest.showPanel",
+        "title": "Show Exercise Panel",
+        "category": "CodeQuest"
+      },
+      {
+        "command": "codequest.disconnect",
+        "title": "Disconnect",
+        "category": "CodeQuest"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "codequest.checkSolution",
+          "when": "codequest.isExerciseFile",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "codequest.checkSolution",
+        "key": "ctrl+alt+enter",
+        "mac": "cmd+alt+enter",
+        "when": "codequest.isExerciseFile"
+      }
+    ],
+    "configuration": {
+      "title": "CodeQuest",
+      "properties": {
+        "codequest.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "CodeQuest server address."
+        },
+        "codequest.exercisesFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Folder where exercise files are created. Empty = ~/CodeQuest"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "test": "npm run compile && node ./out/test/runTest.js",
+    "package": "vsce package --no-dependencies --allow-missing-repository --skip-license"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.19.43",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "glob": "^10.5.0",
+    "mocha": "^12.0.3",
+    "typescript": "^7.0.2"
+  }
+}
